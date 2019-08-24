@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>DkToast demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+    </script>
+
+    <script type="module" src="../dk-toast.js"></script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        dk-toast{
+          position: relative;
+          top:10px;
+          left:10px;
+        }
+        .controls{
+          position: relative;
+          right:10px;
+          top:10px;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          width: 100%;
+        }
+        .control{
+          margin:10px;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+  <div class="controls">
+    <div class="control">
+      <button onclick="openToast()">open toast</button>
+    </div>
+    <div class="control">
+      <label for="delay">delay</label>
+      <input id="delay" type="number" value="0" step="1000" min="0" max="10000" onchange="setDelay()" />
+    </div>
+    <div class="control">
+      <label for="title">title</label>
+      <input id="title" type="text" value="Toast Title" onchange="setTitle()" />
+    </div>
+  </div>
+    <div class="vertical-section-container min-demo-height">
+      <h3>Basic dk-toast demo</h3>
+      <demo-snippet>
+        <template>
+          <dk-toast title="Toast Title" open>
+            Toast content can be text or <a href="#">other html elements</a>
+          </dk-toast>
+        </template>
+      </demo-snippet>
+      <script>
+        let toast;
+        let titleControl;
+        let delayControl;
+        document.addEventListener("DOMContentLoaded", function(event) {
+          toast = document.querySelector("dk-toast");
+          titleControl = document.querySelector("#title");
+          delayControl = document.querySelector("#delay");
+          delayControl.value = 0;
+          setTitle();
+        });
+        function openToast() {
+          toast.open = true;
+        }
+        function setDelay() {
+          toast.delay = delayControl.value;
+        }
+        function setTitle() {
+          toast.title = titleControl.value;
+        }
+      </script>
+    </div>
+  </body>
+</html>
